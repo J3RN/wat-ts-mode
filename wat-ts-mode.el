@@ -27,7 +27,7 @@
 ;;
 ;; This package defines tree-sitter enabled major modes for webassembly,
 ;; `wat-ts-mode' and `wat-ts-wast-mode', for webassembly text format and script
-;; buffers respectively. They provides support for indentation, font-locking,
+;; buffers respectively.  They provide support for indentation, font-locking,
 ;; imenu, and structural navigation.
 ;;
 ;; The tree-sitter grammars compatible with this package can be found at
@@ -49,7 +49,6 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl-lib))
 (require 'treesit)
 
 (defcustom wat-ts-mode-indent-level 2
@@ -130,7 +129,7 @@
    :language language
    :feature 'string
    '((string) @font-lock-string-face)
-   
+
    :language language
    :feature 'number
    '([(nat) (float) (nan) (align_offset_value)] @font-lock-number-face)
@@ -148,7 +147,7 @@
 
      (module_field_func
       identifier: (identifier) @font-lock-function-name-face)
-     
+
      (identifier) @font-lock-variable-name-face)
 
    :language language
@@ -156,7 +155,7 @@
    '((annotation
       "(@" (identifier_pattern) @font-lock-property-use-face)
      (reserved) @font-lock-constant-face)
-   
+
    :language language
    :feature 'keyword
    (append
@@ -188,7 +187,7 @@
    ;; :feature 'exceptions
    ;; XXX: try/catch/throw/rethrow/delegate
    ;; not defined in tree sitter grammar
-   
+
    :language language
    :feature 'bracket
    '(("(" ")") @font-lock-bracket-face)
@@ -196,7 +195,7 @@
    :language language
    :feature 'operator
    '(("=") @font-lock-operator-face)
-   
+
    :language language
    :feature 'escape-sequence
    :override t
@@ -267,7 +266,7 @@
   (setq-local comment-start ";; ")
   (setq-local comment-end "")
   (setq-local comment-start-skip (rx ";;" (* (syntax whitespace))))
-  
+
   ;; Indentation
   (setq-local treesit-simple-indent-rules (wat-ts-mode--indent-rules 'wat))
 
@@ -280,7 +279,7 @@
                   simd exceptions)
                 ( constant number escape-sequence)
                 ( bracket operator error)))
-  
+
   ;; Navigation
   (setq-local treesit-defun-prefer-top-level t)
   (setq-local treesit-defun-name-function #'wat-ts-mode--defun-name)
@@ -340,7 +339,7 @@
 
   ;; Font-Locking
   (setq-local treesit-font-lock-settings (wat-ts-mode--font-lock-settings 'wast))
-  
+
   ;; Navigation
   (setq-local treesit-defun-prefer-top-level t)
   (setq-local treesit-defun-name-function #'wat-ts--wast-defun-name)
